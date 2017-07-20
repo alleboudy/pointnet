@@ -116,11 +116,12 @@ def load_h5(h5_filename):
 # ----------------------------------------------------------------
 
 # Load PLY file
-def load_ply_data(filename, point_num):
+def load_ply_data(filename):
     plydata = PlyData.read(filename)
-    pc = plydata['vertex'].data[:point_num]
-    pc_array = np.array([[x, y, z] for x,y,z in pc])
+    pc = plydata['vertex'].data
+    pc_array = np.array([[x, y, z] for x,y,z,_nx,_ny,_nz,_r,_g,_b,_a in pc])
     return pc_array
+
 
 # Load PLY file
 def load_ply_normal(filename, point_num):

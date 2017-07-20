@@ -32,6 +32,18 @@ def shuffle_data(data, labels):
     np.random.shuffle(idx)
     return data[idx, ...], labels[idx], idx
 
+def shuffle_poses_data(data, posesx,posesq):
+    """ Shuffle data and labels.
+        Input:
+          data: B,N,... numpy array
+          label: B,... numpy array
+        Return:
+          shuffled data, label and shuffle indices
+    """
+    idx = np.arange(len(posesx.shape[0]))
+    np.random.shuffle(idx)
+    return data[idx, ...], posesx[idx,...], posesq[idx,...], idx
+
 
 def rotate_point_cloud(batch_data):
     """ Randomly rotate the point clouds to augument the dataset
@@ -96,9 +108,20 @@ def load_h5(h5_filename):
     data = f['data'][:]
     label = f['label'][:]
     return (data, label)
+   
+def load_poses_h5(h5_filename):
+    f = h5py.File(h5_filename)
+    data = f['data'][:]
+    posesx = f['posesx'][:]
+    posesq = f['posesq'][:]
+    return (data, posesx,posesq)
 
 def loadDataFile(filename):
     return load_h5(filename)
+
+
+def loadPosesDataFile(filename):
+    return load_poses_h5(filename)
 
 def load_h5_data_label_seg(h5_filename):
     f = h5py.File(h5_filename)

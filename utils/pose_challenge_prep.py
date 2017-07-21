@@ -6,11 +6,11 @@ import h5py
 from os import listdir
 from os.path import isfile, join
 
-
-mainplyDir='C:\\Users\\aalleboudy\\Desktop\\experiment\\clouds'
+modelname='house'
+mainplyDir='trainData/'+modelname+'/clouds'
 plyfiles2load=[f for f in listdir(mainplyDir) if isfile(join(mainplyDir, f))]
 #['bird-.ply','bond-.ply','can-.ply','cracker-.ply','shoe-.ply','teapot-.ply']
-outputh5FilePath='C:\\Users\\aalleboudy\\Desktop\\experiment\\clouds\\posestrain.h5'
+outputh5FilePath=modelname+'posestrain.h5'
 
 
 

@@ -40,7 +40,7 @@ def shuffle_poses_data(data, posesx,posesq):
         Return:
           shuffled data, label and shuffle indices
     """
-    idx = np.arange(len(posesx.shape[0]))
+    idx = np.arange(posesx.shape[0])
     np.random.shuffle(idx)
     return data[idx, ...], posesx[idx,...], posesq[idx,...], idx
 

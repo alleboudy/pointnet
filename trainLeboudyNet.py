@@ -16,7 +16,7 @@ import tf_util
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
-parser.add_argument('--model', default='pointnet_cls', help='Model name: pointnet_cls or pointnet_cls_basic [default: pointnet_cls]')
+parser.add_argument('--model', default='leboudyNet', help='Model name: pointnet_cls or pointnet_cls_basic [default: pointnet_cls]')
 parser.add_argument('--log_dir', default='log', help='Log dir [default: log]')
 parser.add_argument('--num_point', type=int, default=2048, help='Point Number [256/512/1024/2048] [default: 1024]')
 parser.add_argument('--max_epoch', type=int, default=500, help='Epoch to run [default: 250]')
@@ -49,7 +49,7 @@ LOG_FOUT = open(os.path.join(LOG_DIR, 'log_train.txt'), 'w')
 LOG_FOUT.write(str(FLAGS)+'\n')
 
 MAX_NUM_POINT = 2048
-NUM_CLASSES = 7
+
 
 BN_INIT_DECAY = 0.5
 BN_DECAY_DECAY_RATE = 0.5
@@ -105,7 +105,7 @@ def train():
 
             # Get model and loss 
             predictedposesx,predictedposesq = MODEL.get_model(pointclouds_pl, is_training_pl, bn_decay=bn_decay)
-            loss = MODEL.get_pose_loss(predictedposesx,predictedposesq, posesx, posesq)
+            loss = MODEL.get_pose_loss(predictedposesx,predictedposesq,posesx,posesq,BATCH_SIZE )#posesx, posesq
             tf.summary.scalar('loss', loss)
 
             #correct = tf.equal(tf.argmax(pred, 1), tf.to_int64(labels_pl))
@@ -214,13 +214,13 @@ def train_one_epoch(sess, ops, train_writer):
             total_seen += BATCH_SIZE
             loss_sum += loss_val
        
-	meanlosslogstr = str(loss_sum / float(num_batches))
-	#accuracylogstr = str(total_correct / float(total_seen))
-	with open("log/trainlog.txt", "a") as myfile:
-    		myfile.write(meanlosslogstr+'\n')
+    meanlosslogstr = str(loss_sum / float(num_batches))
+    #accuracylogstr = str(total_correct / float(total_seen))
+    with open("log/trainlog.txt", "a") as myfile:
+            myfile.write(meanlosslogstr+'\n')
 
  
-        log_string('mean loss: %f' % (loss_sum / float(num_batches)))
+    log_string('mean loss: %f' % (loss_sum / float(num_batches)))
         #log_string('accuracy: %f' % (total_correct / float(total_seen)))
 
         
@@ -230,9 +230,8 @@ def eval_one_epoch(sess, ops, test_writer):
     total_correct = 0
     total_seen = 0
     loss_sum = 0
-    total_seen_class = [0 for _ in range(NUM_CLASSES)]
-    total_correct_class = [0 for _ in range(NUM_CLASSES)]
-    
+
+
     for fn in range(len(TEST_FILES)):
         log_string('----' + str(fn) + '-----')
         current_data, posesx,posesq = provider.loadPosesDataFile(TEST_FILES[fn])

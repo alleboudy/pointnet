@@ -58,34 +58,6 @@ def load_ply_data(filename):
         print('err loading file')
 
 
-#TODO: load the quaternions and translation for the label and use it to build the dataset!!
-def load_poses_ply_data(filename):
-    try:
-        
-        plydata = PlyData.read(filename)
-        pc = plydata['vertex'].data
-        pcxyz_array=[]
-        pcnxyz_array=[]
-        sampled_pcxyz_array=[]
-        sampled_pcnxyz_array=[]
-        for w in pc:
-            x=w[0]
-            y=w[1]
-            z=w[2]
-            pcxyz_array.append([x, y, z])
-            #pcnxyz_array.append([_nx,_ny,_nz])
-        indices = list(range(len(pcxyz_array)))
-        indicessampled= np.random.choice(indices, size=2048)
-        for i in indicessampled:
-            sampled_pcxyz_array.append(pcxyz_array[i])
-           # sampled_pcnxyz_array.append(pcnxyz_array[i])
-
-        return np.asarray(sampled_pcxyz_array),np.zeros_like(sampled_pcxyz_array)
-    except :
-        print('err loading file')
-
-
-
 
 labelsMap = dict({"bird":0,"bond":1,"can":2,"cracker":3,"house":4,"shoe":5,"teapot":6})
 

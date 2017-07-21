@@ -8,11 +8,11 @@ sys.path.append(BASE_DIR)
 sys.path.append(os.path.join(BASE_DIR, '../utils'))
 import tf_util
 from transform_nets import input_transform_net, feature_transform_net
-BETA=500
+BETA=1
 def placeholder_inputs(batch_size, num_point):
     pointclouds_pl = tf.placeholder(tf.float32, shape=(batch_size, num_point, 3))
     posesx = tf.placeholder(tf.float32, shape=(batch_size, 3))
-    posesq = tf.placeholder(tf.float32, shape=(batch_size, 4))
+    posesq = tf.placeholder(tf.float32, shape=(batch_size, 9))
     return pointclouds_pl, posesx,posesq
 
 
@@ -69,17 +69,17 @@ def get_model(point_cloud, is_training, bn_decay=None):
     net = tf_util.dropout(net, keep_prob=0.7, is_training=is_training,
                           scope='dp2')
     predictedposesx = tf_util.fully_connected(net, 3, activation_fn=None, scope='translation')#translation
-    predictedposesq = tf_util.fully_connected(net, 4, activation_fn=None, scope='rotation')#rotation
+    predictedposesq = tf_util.fully_connected(net, 9, activation_fn=None, scope='rotation')#rotation
 
     return predictedposesx,predictedposesq
 
-def get_pose_loss(predictedposesx,predictedposesq,batch_size):
-    poses_x = tf.placeholder(tf.float32, [batch_size, 3])
-    poses_q = tf.placeholder(tf.float32, [batch_size, 4])
+def get_pose_loss(predictedposesx,predictedposesq,posesx,posesq,batch_size):
+    #posesx = tf.placeholder(tf.float32, [batch_size, 3],name='posesx')
+    #posesq = tf.placeholder(tf.float32, [batch_size, 9],name='posesq')
 
 
-    l_x = tf.sqrt(tf.reduce_sum(tf.square(tf.subtract(predictedposesx, poses_x)))) * 1
-    l_q = tf.sqrt(tf.reduce_sum(tf.square(tf.subtract(predictedposesq, poses_q)))) * BETA
+    l_x = tf.sqrt(tf.reduce_sum(tf.square(tf.subtract(predictedposesx, posesx)))) * 1
+    l_q = tf.sqrt(tf.reduce_sum(tf.square(tf.subtract(predictedposesq, posesq)))) * BETA
 
     loss = l_x + l_q
     return loss

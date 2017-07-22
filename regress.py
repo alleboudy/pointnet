@@ -17,7 +17,7 @@ import provider
 import pc_util
 import importlib
 from plyfile import (PlyData, PlyElement, make2d, PlyParseError, PlyProperty)
-import pointnet_cls as MODEL
+import leboudyNet as MODEL
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 parser = argparse.ArgumentParser()
@@ -38,16 +38,16 @@ if testDir:
     BATCH_SIZE = len(onlyPlyfiles)
 #print(onlyPlyfiles)
 reverseDict=dict({0:"bird",1:"bond",2:"can",3:"cracker",4:"house",5:"shoe",6:"teapot"})
-NUM_CLASSES = 7
+#NUM_CLASSES = 7
 def evaluate(num_votes):
     is_training = False
      
    
-    pointclouds_pl, labels_pl = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT)
+    pointclouds_pl, posesx, posesq = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT)
     is_training_pl = tf.placeholder(tf.bool, shape=())
 
     # simple model
-    pred, end_points = MODEL.get_model(pointclouds_pl, is_training_pl)
+    predictedposesx,predictedposesq  = MODEL.get_model(pointclouds_pl, is_training_pl)
     #loss = MODEL.get_loss(pred, labels_pl, end_points)
     
     # Add ops to save and restore all the variables.
@@ -63,7 +63,8 @@ def evaluate(num_votes):
 
     ops = {'pointclouds_pl': pointclouds_pl,
            'is_training_pl': is_training_pl,
-           'pred': pred,
+           'predictedposesx': predictedposesx,
+           'predictedposesq': predictedposesq,
            }
 
     eval_one_epoch(sess, ops, num_votes)
@@ -72,11 +73,9 @@ def evaluate(num_votes):
 def eval_one_epoch(sess, ops, num_votes=1, topk=1):
     error_cnt = 0
     is_training = False
-    total_correct = 0
     total_seen = 0
     loss_sum = 0
-    total_seen_class = [0 for _ in range(NUM_CLASSES)]
-    total_correct_class = [0 for _ in range(NUM_CLASSES)]
+
     #fout = open(os.path.join(DUMP_DIR, 'pred_label.txt'), 'w')
     #for fn in range(len(TEST_FILES)):
     #log_string('----'+str(fn)+'----')
@@ -98,16 +97,13 @@ def eval_one_epoch(sess, ops, num_votes=1, topk=1):
     #print(file_size)
       
     
-    batch_pred_sum = np.zeros((current_data.shape[0], NUM_CLASSES)) # score for classes
-    batch_pred_classes = np.zeros((current_data.shape[0], NUM_CLASSES)) # 0/1 for classes
+    #batch_pred_sum = np.zeros((current_data.shape[0], NUM_CLASSES)) # score for classes
+    #batch_pred_classes = np.zeros((current_data.shape[0], NUM_CLASSES)) # 0/1 for classes
     feed_dict = {ops['pointclouds_pl']: current_data,
                  
                  ops['is_training_pl']: is_training}
-    pred_val = sess.run( ops['pred'],feed_dict=feed_dict)
-    if(len(onlyPlyfiles)==0):
-        onlyPlyfiles.append(testFile)
-    for i in range(len(onlyPlyfiles)):
-            print(onlyPlyfiles[i]+","+reverseDict[np.argmax(pred_val[i])])
+    predx,predq = sess.run( [ops['predictedposesx'],ops['predictedposesq']],feed_dict=feed_dict)
+    print(testFile+","+str(predx[0])+","+str(predq[0]))
 
 
 if __name__=='__main__':

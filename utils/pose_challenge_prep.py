@@ -6,7 +6,7 @@ import h5py
 from os import listdir
 from os.path import isfile, join
 
-modelname='house'
+modelname='shoe'
 mainplyDir='trainData/'+modelname+'/clouds'
 plyfiles2load=[f for f in listdir(mainplyDir) if isfile(join(mainplyDir, f))]
 #['bird-.ply','bond-.ply','can-.ply','cracker-.ply','shoe-.ply','teapot-.ply']

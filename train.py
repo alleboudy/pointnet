@@ -15,8 +15,7 @@ import provider
 import tf_util
 
 
-labelsMap = dict({"bird":0,"can":1,"cracker":2,"house":3,"shoe":4})
-inv_map = {v: k for k, v in labelsMap.items()}
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')

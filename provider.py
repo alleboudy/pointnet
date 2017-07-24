@@ -8,6 +8,7 @@ from plyfile import (PlyData, PlyElement, make2d, PlyParseError, PlyProperty)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 
+
 # Download dataset for point cloud classification
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 #if not os.path.exists(DATA_DIR):

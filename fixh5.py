@@ -41,13 +41,15 @@ def save_h5_data_label_normal(h5_filename, data, label,
 file2fix=FLAGS.input
 fixedfilelocation=FLAGS.output
 data,labels = load_h5(file2fix)
+print(data.shape)
+print(labels.shape)
 newdata=[]
 newlabels=[]
 for i in range(len(labels)):
 	if labels[i] not in [1,6]:
 		newdata.append(data[i])
 		if labels[i]==0:
-			newlabels.append(0)
+			newlabels.append([0])
 		else:	
 			newlabels.append(labels[i]-1)
 	

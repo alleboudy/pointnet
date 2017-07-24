@@ -14,6 +14,10 @@ sys.path.append(os.path.join(BASE_DIR, 'utils'))
 import provider
 import tf_util
 
+
+labelsMap = dict({"bird":0,"can":1,"cracker":2,"house":3,"shoe":4})
+inv_map = {v: k for k, v in labelsMap.items()}
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
 parser.add_argument('--model', default='pointnet_cls', help='Model name: pointnet_cls or pointnet_cls_basic [default: pointnet_cls]')
@@ -49,7 +53,7 @@ LOG_FOUT = open(os.path.join(LOG_DIR, 'log_train.txt'), 'w')
 LOG_FOUT.write(str(FLAGS)+'\n')
 
 MAX_NUM_POINT = 2048
-NUM_CLASSES = 7
+NUM_CLASSES = 5
 
 BN_INIT_DECAY = 0.5
 BN_DECAY_DECAY_RATE = 0.5

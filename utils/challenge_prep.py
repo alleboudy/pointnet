@@ -108,7 +108,7 @@ def load_ply_data_manySamples(filename,numberOfSamples):
 
 
 
-labelsMap = dict({"bird":0,"bond":1,"can":2,"cracker":3,"house":4,"shoe":5,"teapot":6})
+labelsMap = dict({"bird":0,"can":1,"cracker":2,"house":3,"shoe":4})
 
 allpoints=[]
 allnormals=[]

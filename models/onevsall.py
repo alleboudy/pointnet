@@ -79,7 +79,8 @@ def get_loss(pred, label, end_points, reg_weight=0.001):
          meaning the output of each neuron at the end is either it belongs to that class or not
             unlinke the sparse softmax cross entropy which considered the classes mutually exclusive
          """
-    loss = tf.nn.sigmoid_cross_entropy_with_logits(logits=pred, labels=label)
+    oneHotLabels=tf.one_hot(indices = label,depth = 5, on_value = 1.0, off_value = 0.0,axis = -1)
+    loss = tf.nn.sigmoid_cross_entropy_with_logits(logits=pred, labels=oneHotLabels)
     classify_loss = tf.reduce_mean(loss)
     tf.summary.scalar('classify loss', classify_loss)
 

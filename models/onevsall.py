@@ -75,7 +75,7 @@ def get_model(point_cloud, is_training, bn_decay=None):
 def get_loss(pred, label, end_points, reg_weight=0.001):
     """ pred: B*NUM_CLASSES,
         label: B, """
-        """with tf.nn.sigmoid_cross_entropy_with_logits each class is independent,
+    """with tf.nn.sigmoid_cross_entropy_with_logits each class is independent,
          meaning the output of each neuron at the end is either it belongs to that class or not
             unlinke the sparse softmax cross entropy which considered the classes mutually exclusive
          """

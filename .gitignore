@@ -293,8 +293,11 @@ log/
 checkpoints/
 
 
-.yml
+*.yml
 
 
-.dll
-.exe
+*.dll
+*.exe
+*.h5
+*.zip
+*.tar.gz

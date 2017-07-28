@@ -135,7 +135,7 @@ def load_h5_data_label_seg(h5_filename):
 def loadDataFile_with_seg(filename):
     return load_h5_data_label_seg(filename)
 
-def load_ply_data(filename):
+def load_ply_data(filename,size=2048):
 
         plydata = PlyData.read(filename)
         pc = plydata['vertex'].data
@@ -149,7 +149,7 @@ def load_ply_data(filename):
             z=items[2]
             pcxyz_array.append([x, y, z])
         indices = list(range(len(pcxyz_array)))
-        indicessampled= np.random.choice(indices, size=2048)
+        indicessampled= np.random.choice(indices, size=size)
         for i in indicessampled:
             sampled_pcxyz_array.append(pcxyz_array[i])
         #normalizing and zero center:

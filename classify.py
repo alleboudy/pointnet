@@ -17,7 +17,7 @@ import provider
 import pc_util
 import importlib
 from plyfile import (PlyData, PlyElement, make2d, PlyParseError, PlyProperty)
-import pointnet_cls as MODEL
+import onevsall as MODEL
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 parser = argparse.ArgumentParser()
@@ -37,8 +37,8 @@ if testDir:
     onlyPlyfiles = [join(testDir, f) for f in listdir(testDir) if f.endswith('.ply') and isfile(join(testDir, f))]
     BATCH_SIZE = len(onlyPlyfiles)
 #print(onlyPlyfiles)
-reverseDict=dict({0:"bird",1:"bond",2:"can",3:"cracker",4:"house",5:"shoe",6:"teapot"})
-NUM_CLASSES = 7
+reverseDict=dict({0:"bird",1:"can",2:"cracker",3:"house",4:"shoe"})
+NUM_CLASSES = 5
 def evaluate(num_votes):
     is_training = False
      
@@ -49,7 +49,7 @@ def evaluate(num_votes):
     # simple model
     pred, end_points = MODEL.get_model(pointclouds_pl, is_training_pl)
     #loss = MODEL.get_loss(pred, labels_pl, end_points)
-    
+    pred = tf.sigmoid(pred)
     # Add ops to save and restore all the variables.
     saver = tf.train.Saver()
         
@@ -60,6 +60,7 @@ def evaluate(num_votes):
     # Restore variables from disk.
     saver.restore(sess, MODEL_PATH)
     #log_string("Model restored.")
+
 
     ops = {'pointclouds_pl': pointclouds_pl,
            'is_training_pl': is_training_pl,
@@ -85,10 +86,10 @@ def eval_one_epoch(sess, ops, num_votes=1, topk=1):
         for plyfile in onlyPlyfiles:
             #print('loading file')
             #print(plyfile)
-            current_data.append(provider.load_ply_data(plyfile))
+            current_data.append(provider.load_ply_data(plyfile,NUM_POINT))
         current_data = np.asarray(current_data)
     else:
-        current_data = provider.load_ply_data(testFile)
+        current_data = provider.load_ply_data(testFile,NUM_POINT)
         #current_label = np.squeeze(current_label)
         current_data=np.asarray([current_data,np.zeros_like(current_data)])
         #print(current_data.shape)
@@ -107,7 +108,7 @@ def eval_one_epoch(sess, ops, num_votes=1, topk=1):
     if(len(onlyPlyfiles)==0):
         onlyPlyfiles.append(testFile)
     for i in range(len(onlyPlyfiles)):
-            print(onlyPlyfiles[i]+","+reverseDict[np.argmax(pred_val[i])])
+            print(str(np.max(pred_val[i]))+","+reverseDict[np.argmax(pred_val[i])])
 
 
 if __name__=='__main__':

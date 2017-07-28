@@ -80,6 +80,7 @@ def get_loss(pred, label, end_points, reg_weight=0.001):
             unlinke the sparse softmax cross entropy which considered the classes mutually exclusive
          """
     oneHotLabels=tf.one_hot(indices = label,depth = 5, on_value = 1.0, off_value = 0.0,axis = -1)
+    print('shape of the new labels',oneHotLabels.shape)
     loss = tf.nn.sigmoid_cross_entropy_with_logits(logits=pred, labels=oneHotLabels)
     classify_loss = tf.reduce_mean(loss)
     tf.summary.scalar('classify loss', classify_loss)

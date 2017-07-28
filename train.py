@@ -214,7 +214,7 @@ def train_one_epoch(sess, ops, train_writer):
        
 	meanlosslogstr = str(loss_sum / float(num_batches))
 	accuracylogstr = str(total_correct / float(total_seen))
-	with open("log/trainlog.txt", "a") as myfile:
+	with open(os.path.join(LOG_DIR, 'trainlog.txt'), 'a')as myfile:
     		myfile.write(meanlosslogstr+','+accuracylogstr+'\n')
 
  
@@ -260,7 +260,7 @@ def eval_one_epoch(sess, ops, test_writer):
                 total_correct_class[l] += (pred_val[i-start_idx] == l)
     meanlosslogstr = str (loss_sum / float(total_seen))
     accuracylogstr =str (total_correct / float(total_seen))
-    with open("log/evallog.txt", "a") as myfile:
+    with  open(os.path.join(LOG_DIR, 'evallog.txt'), 'a')as myfile:
          myfile.write(meanlosslogstr+','+accuracylogstr+'\n')
         
     log_string('eval mean loss: %f' % (loss_sum / float(total_seen)))

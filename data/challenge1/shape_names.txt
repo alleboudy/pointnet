@@ -1,7 +1,5 @@
 bird
-bond
 can
 cracker
 house
 shoe
-teapot

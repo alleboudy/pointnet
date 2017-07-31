@@ -155,7 +155,7 @@ def load_colored_normals_h5(h5_filename):
     labels = f['labels'][:]
     rgb = f['rgb'][:]
     normals = f['normals'][:]
-    return (data, np.concatenate((rgb,normals), axis=1),labels)
+    return (data, np.concatenate((rgb,normals),axis=2),labels)
 
 def loadColoredDataFile(filename):
     return load_colored_h5(filename)

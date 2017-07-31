@@ -183,6 +183,8 @@ def train_one_epoch(sess, ops, train_writer):
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
         current_data,current_rgb, current_label = provider.loadColoredNormalsDataFile(TRAIN_FILES[train_file_idxs[fn]])
+        #print('shaaaapeee!!!######')
+        #print(current_rgb.shape)
         current_data = current_data[:,0:NUM_POINT,:]
         current_rgb = current_rgb[:,0:NUM_POINT,:]
         current_data, current_rgb,current_label, _ = provider.shuffle_colors_data(current_data,current_rgb, np.squeeze(current_label))            
@@ -221,8 +223,8 @@ def train_one_epoch(sess, ops, train_writer):
             myfile.write(meanlosslogstr+','+accuracylogstr+'\n')
 
  
-        log_string('mean loss: %f' % (loss_sum / float(num_batches)))
-        log_string('accuracy: %f' % (total_correct / float(total_seen)))
+    log_string('mean loss: %f' % (loss_sum / float(num_batches)))
+    log_string('accuracy: %f' % (total_correct / float(total_seen)))
 
         
 def eval_one_epoch(sess, ops, test_writer):

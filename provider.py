@@ -58,6 +58,17 @@ def shuffle_colors_data(data, colors,labels):
     return data[idx, ...], colors[idx,...], labels[idx,...], idx
 
 
+def shuffle_colors_normals_data(data, colors,normals,labels):
+    """ Shuffle data and labels.
+        Input:
+          data: B,N,... numpy array
+          label: B,... numpy array
+        Return:
+          shuffled data, label and shuffle indices
+    """
+    idx = np.arange(labels.shape[0])
+    np.random.shuffle(idx)
+    return data[idx, ...], colors[idx,...],  normals[idx,...], labels[idx,...], idx
 
 def rotate_point_cloud(batch_data):
     """ Randomly rotate the point clouds to augument the dataset
@@ -137,8 +148,20 @@ def load_colored_h5(h5_filename):
     rgb = f['rgb'][:]
     return (data,rgb,labels)
 
+
+def load_colored_normals_h5(h5_filename):
+    f = h5py.File(h5_filename)
+    data = f['data'][:]
+    labels = f['labels'][:]
+    rgb = f['rgb'][:]
+    normals = f['normals'][:]
+    return (data, np.concatenate((rgb,normals), axis=1),labels)
+
 def loadColoredDataFile(filename):
     return load_colored_h5(filename)
+
+def loadColoredNormalsDataFile(filename):
+    return load_colored_normals_h5(filename)
 
 
 def loadPosesDataFile(filename):

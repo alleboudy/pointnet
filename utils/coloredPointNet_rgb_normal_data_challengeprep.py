@@ -7,11 +7,11 @@ from os.path import isfile, join
 
 #modelname='shoe'
 
-mainplyDir='trainplyfiles'
+mainplyDir='testplyfiles'
 plyfiles2load=[f for f in listdir(mainplyDir) if isfile(join(mainplyDir, f))]
 #['bird-.ply','bond-.ply','can-.ply','cracker-.ply','shoe-.ply','teapot-.ply']
-outputh5FilePath='colorsnormalstrain.h5'
-avgstdfile=outputh5FilePath+'trainAverageStdColor.txt'
+outputh5FilePath='colorsnormalstest.h5'
+avgstdfile=outputh5FilePath+'testAverageStdColor.txt'
 
 
 # Write numpy array data and label to h5_filename

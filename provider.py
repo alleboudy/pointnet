@@ -156,6 +156,12 @@ def load_colored_normals_h5(h5_filename):
     rgb = f['rgb'][:]
     normals = f['normals'][:]
     return (data, np.concatenate((rgb,normals),axis=2),labels)
+def load_only_normals_h5(h5_filename):
+    f = h5py.File(h5_filename)
+    data = f['data'][:]
+    labels = f['labels'][:]
+    normals = f['normals'][:]
+    return (data, normals,labels)
 
 def loadColoredDataFile(filename):
     return load_colored_h5(filename)
@@ -163,6 +169,8 @@ def loadColoredDataFile(filename):
 def loadColoredNormalsDataFile(filename):
     return load_colored_normals_h5(filename)
 
+def loadOnlyNormalsDataFile(filename):
+    return load_only_normals_h5(filename)
 
 def loadPosesDataFile(filename):
     return load_poses_h5(filename)

@@ -107,7 +107,7 @@ def train():
             tf.summary.scalar('bn_decay', bn_decay)
 
             # Get model and loss 
-            pred, end_points = MODEL.get_model(pointclouds_pl, is_training_pl, bn_decay=bn_decay)
+            pred, end_points = MODEL.get_model(pointclouds_pl,pointclouds_rgb_pl ,is_training_pl, bn_decay=bn_decay)
             loss = MODEL.get_loss(pred, labels_pl, end_points)
             tf.summary.scalar('loss', loss)
 
@@ -182,7 +182,7 @@ def train_one_epoch(sess, ops, train_writer):
     
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
-        current_data,current_rgb current_label = provider.loadColoredDataFile(TRAIN_FILES[train_file_idxs[fn]])
+        current_data,current_rgb, current_label = provider.loadColoredDataFile(TRAIN_FILES[train_file_idxs[fn]])
         current_data = current_data[:,0:NUM_POINT,:]
         current_rgb = current_rgb[:,0:NUM_POINT,:]
         current_data, current_rgb,current_label, _ = provider.shuffle_colors_data(current_data,current_rgb, np.squeeze(current_label))            
@@ -236,7 +236,7 @@ def eval_one_epoch(sess, ops, test_writer):
     
     for fn in range(len(TEST_FILES)):
         log_string('----' + str(fn) + '-----')
-        current_data,current_rgb current_label = provider.loadColoredDataFile(TEST_FILES[fn])
+        current_data,current_rgb, current_label = provider.loadColoredDataFile(TEST_FILES[fn])
         current_data = current_data[:,0:NUM_POINT,:]
         current_rgb = current_rgb[:,0:NUM_POINT,:]
         current_label = np.squeeze(current_label)

@@ -186,25 +186,42 @@ def load_h5_data_label_seg(h5_filename):
 def loadDataFile_with_seg(filename):
     return load_h5_data_label_seg(filename)
 
-def load_ply_data(filename,size=2048):
+def load_ply_data(filename,size=2048,path2colorsavgSigma=None):
 
         plydata = PlyData.read(filename)
         pc = plydata['vertex'].data
         pcxyz_array=[]
-        pcnxyz_array=[]
+        normals=[]
+        rgb=[]
         sampled_pcxyz_array=[]
-        sampled_pcnxyz_array=[]
-        for items in pc:
-            x=items[0]
-            y=items[1]
-            z=items[2]
-            pcxyz_array.append([x, y, z])
+        sampled_normals_array=[]
+        sampled_colors_array=[]
+        for s in pc:
+            w=list(s)
+            #print(s)
+            pcxyz_array.append(w[0:3])
+            normals.append(w[3:6])
+            rgb.append(w[6:9])
         indices = list(range(len(pcxyz_array)))
         indicessampled= np.random.choice(indices, size=size)
         for i in indicessampled:
             sampled_pcxyz_array.append(pcxyz_array[i])
+            sampled_colors_array.append(rgb[i])
+            sampled_normals_array.append(normals[i])
         #normalizing and zero center:
         sampled_pcxyz_array = np.asarray(sampled_pcxyz_array)
+        sampled_colors_array = np.asarray(sampled_colors_array,dtype=np.float32)
+        sampled_normals_array = np.asarray(sampled_normals_array)
+        if path2colorsavgSigma:
+            with open(path2colorsavgSigma, 'r') as f:
+                elline = f.readline()
+                elline=elline.split(',')
+                avg=float(elline[0])
+                sigma=float(elline[1])
+                print('el average ahooooooooooooo')
+                print(avg)
+                sampled_colors_array-=avg
+                sampled_colors_array/=sigma
         #print(sampled_pcxyz_array.shape)
         minx = min(sampled_pcxyz_array[:,0])
         miny = min(sampled_pcxyz_array[:,1])
@@ -219,6 +236,8 @@ def load_ply_data(filename,size=2048):
         sampled_pcxyz_array[:,0] -= np.average(sampled_pcxyz_array[:,0])
         sampled_pcxyz_array[:,1] -= np.average(sampled_pcxyz_array[:,1])
         sampled_pcxyz_array[:,2] -= np.average(sampled_pcxyz_array[:,2])
-        return sampled_pcxyz_array
+        print('####################el color shape')
+        print(sampled_colors_array.shape)
+        return sampled_pcxyz_array,sampled_colors_array,sampled_normals_array
 
 

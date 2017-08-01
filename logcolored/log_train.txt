@@ -1,0 +1,368 @@
+Namespace(batch_size=64, decay_rate=0.7, decay_step=200000, gpu=0, learning_rate=0.001, log_dir='logcolorednormals', max_epoch=500, model='pointnet_colored', momentum=0.9, num_point=2048, optimizer='adam')
+**** EPOCH 000 ****
+----0-----
+mean loss: 0.562977
+accuracy: 0.889941
+----0-----
+eval mean loss: 0.055163
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+Model saved in file: logcolorednormals/model.ckpt
+**** EPOCH 001 ****
+----0-----
+mean loss: 0.031371
+accuracy: 0.998340
+----0-----
+eval mean loss: 0.012602
+eval accuracy: 0.999609
+eval avg class acc: 0.999609
+**** EPOCH 002 ****
+----0-----
+mean loss: 0.023978
+accuracy: 0.998730
+----0-----
+eval mean loss: 0.024501
+eval accuracy: 0.998828
+eval avg class acc: 0.998829
+**** EPOCH 003 ****
+----0-----
+mean loss: 0.026217
+accuracy: 0.998633
+----0-----
+eval mean loss: 0.009980
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 004 ****
+----0-----
+mean loss: 0.017607
+accuracy: 0.999414
+----0-----
+eval mean loss: 0.004836
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 005 ****
+----0-----
+mean loss: 0.010315
+accuracy: 0.999609
+----0-----
+eval mean loss: 0.004849
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 006 ****
+----0-----
+mean loss: 0.047802
+accuracy: 0.995605
+----0-----
+eval mean loss: 0.014319
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 007 ****
+----0-----
+mean loss: 0.004796
+accuracy: 0.999414
+----0-----
+eval mean loss: 0.001149
+eval accuracy: 0.999609
+eval avg class acc: 0.999609
+**** EPOCH 008 ****
+----0-----
+mean loss: 0.001551
+accuracy: 0.999902
+----0-----
+eval mean loss: 0.000993
+eval accuracy: 0.999609
+eval avg class acc: 0.999609
+**** EPOCH 009 ****
+----0-----
+mean loss: 0.000405
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000147
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 010 ****
+----0-----
+mean loss: 0.000301
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000251
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+Model saved in file: logcolorednormals/model.ckpt
+**** EPOCH 011 ****
+----0-----
+mean loss: 0.000345
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000453
+eval accuracy: 0.999609
+eval avg class acc: 0.999609
+**** EPOCH 012 ****
+----0-----
+mean loss: 0.000176
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000112
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 013 ****
+----0-----
+mean loss: 0.000158
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000242
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 014 ****
+----0-----
+mean loss: 0.000125
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000051
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 015 ****
+----0-----
+mean loss: 0.000137
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000043
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 016 ****
+----0-----
+mean loss: 0.000104
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000040
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 017 ****
+----0-----
+mean loss: 0.006288
+accuracy: 0.998633
+----0-----
+eval mean loss: 0.004273
+eval accuracy: 0.999609
+eval avg class acc: 0.999609
+**** EPOCH 018 ****
+----0-----
+mean loss: 0.002925
+accuracy: 0.999512
+----0-----
+eval mean loss: 0.000311
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 019 ****
+----0-----
+mean loss: 0.000422
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000025
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 020 ****
+----0-----
+mean loss: 0.000435
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000046
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+Model saved in file: logcolorednormals/model.ckpt
+**** EPOCH 021 ****
+----0-----
+mean loss: 0.000825
+accuracy: 0.999805
+----0-----
+eval mean loss: 0.000175
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 022 ****
+----0-----
+mean loss: 0.000464
+accuracy: 0.999902
+----0-----
+eval mean loss: 0.000053
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 023 ****
+----0-----
+mean loss: 0.000099
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000025
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 024 ****
+----0-----
+mean loss: 0.000068
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000011
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 025 ****
+----0-----
+mean loss: 0.000273
+accuracy: 0.999902
+----0-----
+eval mean loss: 0.000013
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 026 ****
+----0-----
+mean loss: 0.000059
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000004
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 027 ****
+----0-----
+mean loss: 0.000268
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000011
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 028 ****
+----0-----
+mean loss: 0.000053
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000013
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 029 ****
+----0-----
+mean loss: 0.000045
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000004
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 030 ****
+----0-----
+mean loss: 0.000044
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+Model saved in file: logcolorednormals/model.ckpt
+**** EPOCH 031 ****
+----0-----
+mean loss: 0.000033
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000015
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 032 ****
+----0-----
+mean loss: 0.000026
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000002
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 033 ****
+----0-----
+mean loss: 0.000026
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000003
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 034 ****
+----0-----
+mean loss: 0.000019
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000009
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 035 ****
+----0-----
+mean loss: 0.000019
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000005
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 036 ****
+----0-----
+mean loss: 0.000020
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 037 ****
+----0-----
+mean loss: 0.000013
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 038 ****
+----0-----
+mean loss: 0.000014
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 039 ****
+----0-----
+mean loss: 0.000015
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 040 ****
+----0-----
+mean loss: 0.000017
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000003
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+Model saved in file: logcolorednormals/model.ckpt
+**** EPOCH 041 ****
+----0-----
+mean loss: 0.000012
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000002
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 042 ****
+----0-----
+mean loss: 0.000012
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 043 ****
+----0-----
+mean loss: 0.000011
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 044 ****
+----0-----
+mean loss: 0.000011
+accuracy: 1.000000
+----0-----
+eval mean loss: 0.000001
+eval accuracy: 1.000000
+eval avg class acc: 1.000000
+**** EPOCH 045 ****
+----0-----

@@ -17,7 +17,7 @@ import provider
 import pc_util
 import importlib
 from plyfile import (PlyData, PlyElement, make2d, PlyParseError, PlyProperty)
-import onevsall as MODEL
+
 from flask import Flask, jsonify, render_template, request
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
@@ -30,16 +30,41 @@ from flask import Flask, jsonify, render_template, request
 
 
 BATCH_SIZE = 2
-NUM_POINT = 2048
-MODEL_PATH = 'log/model.ckpt'
-testFile='D:\\plarr\\trainplyfiles\\bird-0.ply'#FLAGS.ply_path
+NUM_POINT = 512
+MODEL_PATH=''
+
+testFile=''#FLAGS.ply_path
 #print(onlyPlyfiles)
 reverseDict=dict({0:"bird",1:"can",2:"cracker",3:"house",4:"shoe"})
 NUM_CLASSES = 5
 
+import pointnet_colored as MODEL_onlycolored
+import onevsall as MODEL_onlyPoints
+import pointnet_colored as MODEL_onlynormals
+import pointnet_coloredNormals as MODEL_normalsandcolors
 
+pipelineCode=1
+'''
+0 = colored
+1 = colored+normals
+2 = only points
+3 = only normals
+'''
 
+MODEL=None
 
+if pipelineCode ==0:
+	MODEL = MODEL_onlycolored
+	MODEL_PATH='logcolored/model.ckpt'
+elif pipelineCode ==1:
+	MODEL = MODEL_normalsandcolors
+	MODEL_PATH='logNORMALSncolored/model.ckpt'
+elif pipelineCode==2:
+	MODEL = MODEL_onlyPoints
+	MODEL_PATH = 'log/model.ckpt'
+elif pipelineCode==3:
+	MODEL = MODEL_onlycolored
+	MODEL_PATH='logdatanormalsnocolor/model.ckpt'
 
 
 
@@ -51,12 +76,21 @@ NUM_CLASSES = 5
 
 
 is_training = False
-pointclouds_pl, labels_pl = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT)
+pointclouds_pl=None
+pointclouds_rgb_pl=None
+labels_pl=None
 is_training_pl = tf.placeholder(tf.bool, shape=())
-# simple model
-pred, end_points = MODEL.get_model(pointclouds_pl, is_training_pl)
+
+if pipelineCode==2:
+	pointclouds_pl, labels_pl = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT)
+	pred, end_points = MODEL.get_model(pointclouds_pl,is_training_pl)
+else:# pipelineCode ==0:
+	pointclouds_pl,pointclouds_rgb_pl, labels_pl = MODEL.placeholder_inputs(BATCH_SIZE, NUM_POINT)
+	pred, end_points = MODEL.get_model(pointclouds_pl, pointclouds_rgb_pl,is_training_pl)
+
+	
 #loss = MODEL.get_loss(pred, labels_pl, end_points)
-pred = tf.sigmoid(pred)
+pred = tf.nn.softmax(pred)
 # Add ops to save and restore all the variables.
 saver = tf.train.Saver()
     
@@ -68,16 +102,16 @@ sess = tf.Session()
 # Restore variables from disk.
 saver.restore(sess, MODEL_PATH)
 #log_string("Model restored.")
-
-
-ops = {'pointclouds_pl': pointclouds_pl,
+ops={'pointclouds_pl': pointclouds_pl,
        'is_training_pl': is_training_pl,
        'pred': pred,
        }
+if pipelineCode!=2:
+	ops['pointclouds_rgb_pl']=pointclouds_rgb_pl
 
 
 
-
+path2colorsavgSigma='colorsnormalstrain.h5trainAverageStdColor.txt'
 
 
 
@@ -108,9 +142,15 @@ def eval_one_epoch(testFile=testFile,sess=sess,ops=ops,num_votes=1):
     is_training = False
     current_data=[]
 
-    current_data = provider.load_ply_data(testFile,NUM_POINT)
+    current_data,current_colors,current_normals = provider.load_ply_data(testFile,NUM_POINT,path2colorsavgSigma)
     #current_label = np.squeeze(current_label)
+    if pipelineCode==1:
+    	current_colors = np.concatenate((current_colors,current_normals),axis=1)
+    if pipelineCode==3:
+    	current_colors = current_normals
     current_data = np.asarray([current_data,np.zeros_like(current_data)])
+    current_colors = np.asarray([current_colors,np.zeros_like(current_colors)])
+    current_normals = np.asarray([current_normals,np.zeros_like(current_normals)])
     #print(current_data.shape)
             
     #file_size = current_data.shape[0]
@@ -123,6 +163,8 @@ def eval_one_epoch(testFile=testFile,sess=sess,ops=ops,num_votes=1):
     feed_dict = {ops['pointclouds_pl']: current_data,
                  
                  ops['is_training_pl']: is_training}
+    if pipelineCode!=2:
+    	feed_dict[ops['pointclouds_rgb_pl']]=current_colors
     pred_val = sess.run( ops['pred'],feed_dict=feed_dict)
     sb = StringBuilder()
     #if(len(onlyPlyfiles)==0):

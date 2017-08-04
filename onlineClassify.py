@@ -30,7 +30,7 @@ from flask import Flask, jsonify, render_template, request
 
 
 BATCH_SIZE = 2
-NUM_POINT = 512
+NUM_POINT = 2048
 MODEL_PATH=''
 
 testFile=''#FLAGS.ply_path
@@ -43,7 +43,7 @@ import onevsall as MODEL_onlyPoints
 import pointnet_colored as MODEL_onlynormals
 import pointnet_coloredNormals as MODEL_normalsandcolors
 
-pipelineCode=1
+pipelineCode=2  
 '''
 0 = colored
 1 = colored+normals
@@ -194,4 +194,3 @@ if __name__=='__main__':
     with tf.device('/cpu:0'):
         with tf.Graph().as_default():
                 app.run()
-

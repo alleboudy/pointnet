@@ -1,3 +1,4 @@
+# El detectozord!
 ![El Detectozord](https://github.com/alleboudy/pointnet/blob/master/doc/eldetectozord.png?raw=true "El detectoZord")
 
 a comprehensive readme will be presented later, but a few words for now .... and apologies for the experimental code, will clean it up later

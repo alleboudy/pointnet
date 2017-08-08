@@ -24,6 +24,10 @@ please see requestclassification.py for a simple client that uses the server
 
 regress.py uses a different variation of PoinetNet can be found under models/leboudyNet.py that tries to regress the pose of a given object, however it needs better training data
 
+
+in https://github.com/alleboudy/detectozord
+a typical use in a detection pipeline is present in /segmentation
+
 new updates are to be added later ...
 Thanks!
 

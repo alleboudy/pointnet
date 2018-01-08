@@ -80,5 +80,5 @@ https://github.com/alleboudy/pointnet/blob/master/models/pointnet_colored.py
 https://github.com/alleboudy/pointnet/blob/master/models/pointnet_coloredNormals.py
 
 ------
-# Please, feel free to contact me for any clarifications, also, if you find this useful in a research you do, I would really appreciate it so much if you may cite my work here ^^
+# Please, feel free to contact me for any clarifications, also, if you find this useful in a research you do, I would really appreciate it so much if you may reference my work here ^^
 Ahmad Alleboudy, ahmad.alleboudy@outlook.com

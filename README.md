@@ -1,7 +1,7 @@
 # El detectozord!
 ![El Detectozord](https://github.com/alleboudy/pointnet/blob/master/doc/eldetectozord.png?raw=true "El detectoZord")
 
-a comprehensive readme will be presented later, but a few words for now .... and apologies for the experimental code, will clean it up later
+### please see the updates down at the end for some clarifications [Updates based on discussions section]
 
 in this repository I editted PointNet to use colors and normals as well
 

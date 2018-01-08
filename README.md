@@ -30,4 +30,55 @@ a typical use in a detection pipeline is present in /segmentation
 
 new updates are to be added later ...
 Thanks!
+-------
 
+# Updates based on discussions:
+
+
+## As per the normalization part,
+For python: in 
+https://github.com/alleboudy/pointnet/blob/master/provider.py
+after line 211 
+
+
+minx = min(sampled_pcxyz_array[:,0])
+miny = min(sampled_pcxyz_array[:,1])
+minz = min(sampled_pcxyz_array[:,2])
+maxx = max(sampled_pcxyz_array[:,0])
+maxy = max(sampled_pcxyz_array[:,1])
+maxz = max(sampled_pcxyz_array[:,2])
+scale = min((1 / (maxx - minx)), min(1 / (maxy - miny),1/ (maxz-minz)))
+sampled_pcxyz_array[:,0] = (sampled_pcxyz_array[:,0] - 0.5*(minx + maxx))*scale + 0.5
+sampled_pcxyz_array[:,1] = (sampled_pcxyz_array[:,1] - 0.5*(miny + maxy))*scale + 0.5
+sampled_pcxyz_array[:,2] = (sampled_pcxyz_array[:,2] - 0.5*(minz + maxz))*scale + 0.5
+sampled_pcxyz_array[:,0] -= np.average(sampled_pcxyz_array[:,0])
+sampled_pcxyz_array[:,1] -= np.average(sampled_pcxyz_array[:,1])
+sampled_pcxyz_array[:,2] -= np.average(sampled_pcxyz_array[:,2])
+could have definitely been written in a cleaner way, but uh, desperate times call for desperate measures xD
+
+attached is the snippit for C++ as well, 
+it is in the repository 
+https://github.com/alleboudy/detectozord
+
+https://github.com/alleboudy/detectozord/blob/master/utils/utils/main.cpp
+
+from line 240 onwards, 
+
+I would usually use the c++ for when processing the training data, and the python for when doing the classification, but they are exactly the same[notice the 'scale' variable, without it, you get very funny shapes 😃]
+
+
+------------
+## Training Different Models:
+
+### For normals only; I used the regular colored architecture but fed it normals instead of colors, I know I should have changed its name in a separate file, sorry xD
+
+https://github.com/alleboudy/pointnet/blob/master/models/pointnet_colored.py
+
+
+### For normals and colors;
+
+https://github.com/alleboudy/pointnet/blob/master/models/pointnet_coloredNormals.py
+
+------
+# Please, feel free to contact me for any clarifications, also, if you find this useful in a research you do, I would really appreciate it so much if you may cite my work here ^^
+Ahmad Alleboudy, ahmad.alleboudy@outlook.com

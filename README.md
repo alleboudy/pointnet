@@ -64,7 +64,7 @@ https://github.com/alleboudy/detectozord/blob/master/utils/utils/main.cpp
 
 from line 240 onwards, 
 
-I would usually use the c++ for when processing the training data, and the python for when doing the classification, but they are exactly the same[notice the 'scale' variable, without it, you get very funny shapes 😃]
+I would usually use the c++ for when processing the training data, and the python for when doing the classification, but they are exactly the same[notice the 'scale' variable to respect the aspect ratio, without it, you get very funny shapes 😃]
 
 
 ------------
@@ -80,5 +80,8 @@ https://github.com/alleboudy/pointnet/blob/master/models/pointnet_colored.py
 https://github.com/alleboudy/pointnet/blob/master/models/pointnet_coloredNormals.py
 
 ------
-# Please, feel free to contact me for any clarifications, also, if you find this useful in a research you do, I would really appreciate it so much if you may reference my work here ^^
-Ahmad Alleboudy, ahmad.alleboudy@outlook.com
+### Please, feel free to contact me for any clarifications, also, if you find this useful in a research you do, I would really appreciate it so much if you may reference my work here ^^
+Ahmad Alleboudy, ahmad.alleboudy@outlook.com,
+*M.Sc. student of the Computer Science department at Pisa University, Italy*
+
+https://www.linkedin.com/in/ahmadalleboudy/

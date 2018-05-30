@@ -1,6 +1,7 @@
 # El detectozord!
 ![El Detectozord](https://github.com/alleboudy/pointnet/blob/master/doc/eldetectozord.png?raw=true "El detectoZord")
 
+
 ### please see the updates down at the end for some clarifications [Updates based on discussions section]
 
 in this repository I editted PointNet to use colors and normals as well
@@ -31,6 +32,18 @@ a typical use in a detection pipeline is present in /segmentation
 new updates are to be added later ...
 Thanks!
 -------
+
+
+### Running the Segmentation pipeline
+
+1- install tensorflow v 1.1  was used [pip install tesorflow==1.1], later versions might have a problem restoring the checkpoints
+2- pip install requests  [needed for calling the online classifier]
+3- install opencv, PCL and its dependencies [for windows useres, check out: http://unanancyowen.com/en/pcl181]
+4- run onlineClassify.py [the classification flask app] [feel free to change the pipelineCode in the script to change the model used]
+5- build and run segmentation, to switch it to a realtime set the boolean flag in the main.cpp live=true; [yup, I need to clean that, sorry xD]
+
+
+
 
 # Updates based on discussions:
 

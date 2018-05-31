@@ -17,7 +17,7 @@ pipelineCode=
 '''
 0 = colored
 1 = colored+normals
-2 = only points
+2 = only points [currently deleted, please use the others, thanks]
 3 = only normals
 '''
 
@@ -34,14 +34,44 @@ Thanks!
 -------
 
 
+
+## prerequisites used:
+```
+python 3.5 x64
+
+https://www.python.org/downloads/release/python-350/
+```
+```
+pip install --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.0.0-cp35-cp35m-win_amd64.whl
+```
+```
+pip install scipy
+```
+```
+pip install image
+```
+```
+pip install matplotlib
+```
+```
+pip install flask
+```
+
 ### Running the Segmentation pipeline
+```
 
-1- install tensorflow v 1.1  was used [pip install tesorflow==1.1], later versions might have a problem restoring the checkpoints
+1- install tensorflow v 1.0  was used [pip install tesorflow==1.1], later versions might have a problem restoring the checkpoints
+
 2- pip install requests  [needed for calling the online classifier]
-3- install opencv, PCL and its dependencies [for windows useres, check out: http://unanancyowen.com/en/pcl181]
-4- run onlineClassify.py [the classification flask app] [feel free to change the pipelineCode in the script to change the model used]
-5- build and run segmentation, to switch it to a realtime set the boolean flag in the main.cpp live=true; [yup, I need to clean that, sorry xD]
 
+3- install opencv, PCL and its dependencies [for windows useres, check out: http://unanancyowen.com/en/pcl181]
+
+4- run onlineClassify.py [the classification flask app] [feel free to change the pipelineCode in the script to change the model used <currently 2 is not available!>]
+
+5- build and run segmentation, to switch it to a realtime set the boolean flag in the main.cpp live=true;
+
+[yup, I need to clean that and get the flags out as parameters, sorry xD]
+```
 
 
 

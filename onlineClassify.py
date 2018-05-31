@@ -43,7 +43,7 @@ import onevsall as MODEL_onlyPoints
 import pointnet_colored as MODEL_onlynormals
 import pointnet_coloredNormals as MODEL_normalsandcolors
 
-pipelineCode=2  
+pipelineCode=3  
 '''
 0 = colored
 1 = colored+normals

@@ -45,10 +45,10 @@ import pointnet_coloredNormals as MODEL_normalsandcolors
 
 pipelineCode=3  
 '''
-0 = colored
+0 = colored(+points)
 1 = colored+normals
 2 = only points
-3 = only normals
+3 = only normals(+points)
 '''
 
 MODEL=None
@@ -142,7 +142,7 @@ def eval_one_epoch(testFile=testFile,sess=sess,ops=ops,num_votes=1):
     is_training = False
     current_data=[]
 
-    current_data,current_colors,current_normals = provider.load_ply_data(testFile,NUM_POINT,path2colorsavgSigma)
+    current_data,current_colors,current_normals = provider.online_load_ply_data(testFile,NUM_POINT,path2colorsavgSigma)
     #current_label = np.squeeze(current_label)
     if pipelineCode==1:
     	current_colors = np.concatenate((current_colors,current_normals),axis=1)
@@ -170,9 +170,9 @@ def eval_one_epoch(testFile=testFile,sess=sess,ops=ops,num_votes=1):
     #if(len(onlyPlyfiles)==0):
     #    onlyPlyfiles.append(testFile)
     #for i in range(len(onlyPlyfiles)):
-    sb.Append(str(np.max(pred_val[0])))
-    sb.Append(",")
-    sb.Append(reverseDict[np.argmax(pred_val[0])])
+    sb.Append(unicode(str(np.max(pred_val[0]))))
+    sb.Append(unicode(","))
+    sb.Append(unicode(reverseDict[np.argmax(pred_val[0])]))
     #sb.Append('\n')
             #print(str(np.max(pred_val[i]))+","+reverseDict[np.argmax(pred_val[i])])
 
@@ -185,12 +185,13 @@ app = Flask(__name__)
 def main():
     #input = ((255 - np.array(request.json, dtype=np.uint8)) / 255.0).reshape(1, 784)
     #testFile = request.args.get('testFile')
-    testFile = request.data
-    output = eval_one_epoch(testFile=testFile)
+    #testFile = request.data
+    output = eval_one_epoch(testFile=request.data)
+    print(output)
     return output
 
 
 if __name__=='__main__':
-    with tf.device('/cpu:0'):
-        with tf.Graph().as_default():
-                app.run()
+    #with tf.device('/cpu:0'):
+    with tf.Graph().as_default():
+            app.run(host = '0.0.0.0',port=5070)

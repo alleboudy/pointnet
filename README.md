@@ -70,7 +70,6 @@ pip install flask
 
 5- build and run segmentation, to switch it to a realtime set the boolean flag in the main.cpp live=true;
 
-[yup, I need to clean that and get the flags out as parameters, sorry xD]
 ```
 
 
@@ -97,7 +96,7 @@ sampled_pcxyz_array[:,2] = (sampled_pcxyz_array[:,2] - 0.5*(minz + maxz))*scale 
 sampled_pcxyz_array[:,0] -= np.average(sampled_pcxyz_array[:,0])
 sampled_pcxyz_array[:,1] -= np.average(sampled_pcxyz_array[:,1])
 sampled_pcxyz_array[:,2] -= np.average(sampled_pcxyz_array[:,2])
-could have definitely been written in a cleaner way, but uh, desperate times call for desperate measures xD
+
 
 attached is the snippit for C++ as well, 
 it is in the repository 
@@ -113,7 +112,7 @@ I would usually use the c++ for when processing the training data, and the pytho
 ------------
 ## Training Different Models:
 
-### For normals only; I used the regular colored architecture but fed it normals instead of colors, I know I should have changed its name in a separate file, sorry xD
+### For normals only; I used the regular colored architecture but fed it normals instead of colors
 
 https://github.com/alleboudy/pointnet/blob/master/models/pointnet_colored.py
 

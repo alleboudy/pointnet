@@ -45,16 +45,7 @@ https://www.python.org/downloads/release/python-350/
 pip install --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.0.0-cp35-cp35m-win_amd64.whl
 ```
 ```
-pip install scipy
-```
-```
-pip install image
-```
-```
-pip install matplotlib
-```
-```
-pip install flask
+pip install scipy image matplotlib flask
 ```
 
 ### Running the Segmentation pipeline

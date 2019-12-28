@@ -170,9 +170,9 @@ def eval_one_epoch(testFile=testFile,sess=sess,ops=ops,num_votes=1):
     #if(len(onlyPlyfiles)==0):
     #    onlyPlyfiles.append(testFile)
     #for i in range(len(onlyPlyfiles)):
-    sb.Append(unicode(str(np.max(pred_val[0]))))
-    sb.Append(unicode(","))
-    sb.Append(unicode(reverseDict[np.argmax(pred_val[0])]))
+    sb.Append(str(np.max(pred_val[0])))
+    sb.Append(",")
+    sb.Append(str(reverseDict[np.argmax(pred_val[0])]))
     #sb.Append('\n')
             #print(str(np.max(pred_val[i]))+","+reverseDict[np.argmax(pred_val[i])])
 
@@ -194,4 +194,4 @@ def main():
 if __name__=='__main__':
     #with tf.device('/cpu:0'):
     with tf.Graph().as_default():
-            app.run(host = '0.0.0.0',port=5070)
+            app.run(host = '192.168.0.163',port=5070)

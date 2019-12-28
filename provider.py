@@ -4,7 +4,7 @@ import numpy as np
 import h5py
 from random import shuffle
 from plyfile import (PlyData, PlyElement, make2d, PlyParseError, PlyProperty)
-from cStringIO import StringIO
+from io import StringIO,BytesIO 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 
@@ -242,7 +242,7 @@ def load_ply_data(filename,size=2048,path2colorsavgSigma=None):
 
 
 def online_load_ply_data(plydataString,size=2048,path2colorsavgSigma=None): 
-        output = StringIO(plydataString)     
+        output = BytesIO(plydataString)     
         plydata = PlyData.read(output)
         pc = plydata['vertex'].data
         pcxyz_array=[]
